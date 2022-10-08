@@ -165,7 +165,7 @@ while running:
     else:
         # TODO write some code that prioritizes junctions that are not only closer, but closer in angle
         # TODO idk how to do that
-        junctions_sorted = sorted(junctions_sorted, key=lambda item: math.dist(robot.get_pos(), item) - math.degrees(abs(robot.rotation - math.atan2(math.radians(item[1] - robot.y), math.radians(item[0] - robot.x)))))#, reverse=True)
+        junctions_sorted = sorted(junctions_sorted, key=lambda item: abs(robot.rotation - -math.degrees(math.atan2(item[1] - robot.get_pos()[1], item[0] - robot.get_pos()[0]))), reverse=True)
 
         # print(junctions_sorted)
     # print(junctions_sorted)

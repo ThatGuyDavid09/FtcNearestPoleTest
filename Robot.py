@@ -1,5 +1,6 @@
 import math
 
+import numpy as np
 import pygame
 
 from BaseSprite import BaseSprite
@@ -47,3 +48,8 @@ class Robot(pygame.sprite.Sprite):
 
     def get_pos(self):
         return self.x, self.y
+
+    def get_normal_vector(self):
+        vector = [self.x + math.cos(math.radians(self.rotation)), self.y + math.sin(math.radians(self.rotation))]
+        norm = np.linalg.norm(vector)
+        return vector / norm
