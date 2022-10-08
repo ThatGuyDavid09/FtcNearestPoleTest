@@ -121,6 +121,9 @@ while running:
             running = False
 
         if event.type == pygame.KEYDOWN:
+            if event.key == ord('q'):
+                running = False
+
             if event.key == pygame.K_LEFT or event.key == ord('a'):
                 robot.control_move(-steps, 0)
             if event.key == pygame.K_RIGHT or event.key == ord('d'):
@@ -164,7 +167,7 @@ while running:
         # TODO idk how to do that
         junctions_sorted = sorted(junctions_sorted, key=lambda item: math.dist(robot.get_pos(), item) - math.degrees(abs(robot.rotation - math.atan2(math.radians(item[1] - robot.y), math.radians(item[0] - robot.x)))))#, reverse=True)
 
-        print(junctions_sorted)
+        # print(junctions_sorted)
     # print(junctions_sorted)
     closest_sorted = junctions_sorted[0]
     # print(closest)
