@@ -47,3 +47,7 @@ class Robot(pygame.sprite.Sprite):
 
     def get_pos(self):
         return self.x, self.y
+
+    def get_normal_vec(self):
+        modified_rotation = self.rotation * -1
+        return [math.cos(math.radians(modified_rotation)), math.sin(math.radians(modified_rotation))]

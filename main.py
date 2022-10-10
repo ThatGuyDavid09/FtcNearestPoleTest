@@ -1,3 +1,4 @@
+import numpy as np
 import pygame
 import math
 
@@ -37,6 +38,14 @@ offset = WIDTH / 6
 max_dist_possible = math.dist((0, 0), (offset * 1.1, offset * 1.1))
 rects_to_draw = []
 
+
+def unit_vector(vector):
+    return vector / np.linalg.norm(vector)
+
+def angle_between(v1, v2):
+    v1_u = unit_vector(v1)
+    v2_u = unit_vector(v2)
+    return np.arccos(np.clip(np.dot(v1_u, v2_u), -1.0, 1.0))
 
 def generate_junctions():
     offset = WIDTH / 6
@@ -165,7 +174,9 @@ while running:
     else:
         # TODO write some code that prioritizes junctions that are not only closer, but closer in angle
         # TODO idk how to do that
-        junctions_sorted = sorted(junctions_sorted, key=lambda item: math.dist(robot.get_pos(), item) - math.degrees(abs(robot.rotation - math.atan2(math.radians(item[1] - robot.y), math.radians(item[0] - robot.x)))))#, reverse=True)
+        print(robot.rotation)
+        # junctions_sorted = sorted(junctions_sorted, key=lambda item: abs(robot.rotation) - abs(math.degrees(math.atan2((item[1] - robot.y), (item[0] - robot.x)))))#, reverse=True)
+        junctions_sorted = sorted(junctions_sorted, key=lambda item: angle_between([(item[0] - robot.x), (item[1] - robot.y)], robot.get_normal_vec()))#, reverse=True)
 
         # print(junctions_sorted)
     # print(junctions_sorted)
